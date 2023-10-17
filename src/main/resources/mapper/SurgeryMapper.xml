@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cwc.springbootInit.mapper.SurgeryMapper">
+
+    <resultMap id="BaseResultMap" type="com.cwc.springbootInit.model.entity.Surgery">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="patient" column="patient" jdbcType="BIGINT"/>
+            <result property="doctor" column="doctor" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="startTime" column="startTime" jdbcType="TIMESTAMP"/>
+            <result property="duration" column="duration" jdbcType="TINYINT"/>
+            <result property="job" column="job" jdbcType="VARCHAR"/>
+            <result property="medicalHistory" column="medicalHistory" jdbcType="VARCHAR"/>
+            <result property="chronicHistory" column="chronicHistory" jdbcType="VARCHAR"/>
+            <result property="allergy" column="allergy" jdbcType="VARCHAR"/>
+            <result property="reaction" column="reaction" jdbcType="VARCHAR"/>
+            <result property="evaluation" column="evaluation" jdbcType="TINYINT"/>
+            <result property="examination" column="examination" jdbcType="TINYINT"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,patient,doctor,
+        name,startTime,duration,
+        job,medicalHistory,chronicHistory,
+        allergy,reaction,evaluation,
+        examination,createTime,updateTime,
+        isDelete
+    </sql>
+</mapper>
