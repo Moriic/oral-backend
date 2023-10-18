@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: springbootInit
+    name: oral
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -26,7 +26,7 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值（默认为 1）
       logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
 
-init:
+oral:
   jwt:
     # 设置jwt签名加密时使用的秘钥
     user-secret-key: secretKey

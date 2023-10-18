@@ -64,6 +64,17 @@ create table if not exists surgery
     foreign key (doctor) references user (id)
 ) comment '手术' collate = utf8mb4_unicode_ci;
 
+-- 检测图像
+create table if not exists image
+(
+    id             bigint auto_increment comment 'id' primary key,
+    patient        bigint not null comment '患者id',
+    originalImage  varchar(256) not null comment '原图像',
+    processedImage varchar(256) not null comment '处理后的图像',
+    foreign key (patient) references patient(id)
+) comment '图像' collate = utf16_unicode_ci;
+
+
 -- 默认账号 doctor 123456 md5加密
 insert into user (id, account, password, name, age, birthday, gender, phone, department, job, avatar, photo, profile,
                   role)

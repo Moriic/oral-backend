@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cwc.springbootInit.mapper.SurgeryMapper">
+<mapper namespace="com.oral.mapper.SurgeryMapper">
 
-    <resultMap id="BaseResultMap" type="com.cwc.springbootInit.model.entity.Surgery">
+    <resultMap id="BaseResultMap" type="com.oral.model.entity.Surgery">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="patient" column="patient" jdbcType="BIGINT"/>
             <result property="doctor" column="doctor" jdbcType="BIGINT"/>
