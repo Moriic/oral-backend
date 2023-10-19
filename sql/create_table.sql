@@ -45,8 +45,8 @@ create table if not exists patient
 create table if not exists surgery
 (
     id             bigint auto_increment comment 'id' primary key,
-    patientId        bigint                                 not null comment '患者id',
-    doctorId         bigint                                 not null comment '医生id',
+    patientId      bigint                                 not null comment '患者id',
+    doctorId       bigint                                 not null comment '医生id',
     name           varchar(50)                            not null comment '手术名称',
     startTime      datetime                               not null comment '开始时间',
     duration       tinyint                                not null comment '手术时长',
@@ -68,10 +68,10 @@ create table if not exists surgery
 create table if not exists image
 (
     id             bigint auto_increment comment 'id' primary key,
-    patientId        bigint not null comment '患者id',
+    patientId      bigint       not null comment '患者id',
     originalImage  varchar(256) not null comment '原图像',
     processedImage varchar(256) not null comment '处理后的图像',
-    foreign key (patientId) references patient(id)
+    foreign key (patientId) references patient (id)
 ) comment '图像' collate = utf16_unicode_ci;
 
 
