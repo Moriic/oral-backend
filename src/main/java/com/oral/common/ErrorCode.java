@@ -2,7 +2,6 @@ package com.oral.common;
 
 /**
  * 自定义错误码
- *
  */
 public enum ErrorCode {
     SUCCESS(0, "ok"),

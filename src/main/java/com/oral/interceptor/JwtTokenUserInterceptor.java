@@ -2,6 +2,7 @@ package com.oral.interceptor;
 
 
 import com.oral.constant.JwtClaimsConstant;
+import com.oral.constant.UserContant;
 import com.oral.properties.JwtProperties;
 import com.oral.utils.BaseContext;
 import com.oral.utils.JwtUtil;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 /**
  * jwt令牌校验的拦截器
@@ -49,7 +51,13 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
             log.info("jwt校验:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
             Long userId = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
-            log.info("当前用户id：{}", userId);
+            String role = claims.get(JwtClaimsConstant.ROLE).toString();
+            log.info("当前用户id：{},权限：{}", userId,role);
+
+            // doctor 无法访问 admin 接口
+            if (request.getRequestURI().contains(UserContant.ADMIN) && role.equals(UserContant.DOCTOR)){
+                return false;
+            }
             BaseContext.setCurrentId(userId);
             //3、通过，放行
             return true;

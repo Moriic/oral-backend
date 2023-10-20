@@ -32,9 +32,12 @@ public class WebMVCConfig extends WebMvcConfigurationSupport {
      */
     protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtTokenUserInterceptor)
+                .addPathPatterns("/doctor/**")
+                .addPathPatterns("/admin/**")
                 .addPathPatterns("/user/**")
                 .excludePathPatterns("/user/login");
     }
+
 
     /**
      * knife4j 配置静态资源映射
