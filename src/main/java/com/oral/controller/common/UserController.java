@@ -2,17 +2,14 @@ package com.oral.controller.common;
 
 
 import com.oral.common.BaseResponse;
-import com.oral.common.ErrorCode;
 import com.oral.common.ResultUtils;
 import com.oral.constant.JwtClaimsConstant;
-import com.oral.exception.BusinessException;
-import com.oral.exception.ThrowUtils;
 import com.oral.model.dto.UserLoginDTO;
-import com.oral.model.dto.UserUpdateDTO;
 import com.oral.model.entity.User;
 import com.oral.model.vo.UserLoginVO;
 import com.oral.properties.JwtProperties;
 import com.oral.service.UserService;
+import com.oral.utils.BaseContext;
 import com.oral.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -35,9 +32,8 @@ public class UserController {
 
     /**
      * 用户登录
-     *
-     * @param userLoginDTO
-     * @return
+     * @param userLoginDTO  账号密码
+     * @return  返回账号信息和token
      */
     @PostMapping("/login")
     public BaseResponse<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO) {
@@ -63,22 +59,24 @@ public class UserController {
     /**
      * 退出登录
      *
-     * @return
+     * @return true
      */
     @PostMapping("/logout")
     public BaseResponse<Boolean> userLogout() {
         return ResultUtils.success(true);
     }
-//    @PutMapping
-//    public BaseResponse<Boolean> updateUser(@RequestBody UserUpdateDTO userUpdateDTO) {
-//        if (userUpdateDTO == null) {
-//            throw new BusinessException(ErrorCode.PARAMS_ERROR);
-//        }
-//        User user = new User();
-//        BeanUtils.copyProperties(userUpdateDTO, user);
-//        boolean result = userService.updateById(user);
-//        ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
-//        return ResultUtils.success(true);
-//    }
 
+    /**
+     * 获取登录用户信息
+     * @return 用户信息
+     */
+    @GetMapping
+    public BaseResponse<UserLoginVO> getUserById(){
+        Long userId = BaseContext.getCurrentId();
+        User user = userService.getById(userId);
+
+        UserLoginVO userLoginVO = new UserLoginVO();
+        BeanUtils.copyProperties(user,userLoginVO);
+        return ResultUtils.success(userLoginVO);
+    }
 }

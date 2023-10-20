@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class UserUpdateDTO {
+public class DoctorUpdateDTO {
 
     /**
      * 姓名
