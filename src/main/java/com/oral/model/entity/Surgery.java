@@ -24,12 +24,12 @@ public class Surgery implements Serializable {
     /**
      * 患者id
      */
-    private Long patient;
+    private Long patientId;
 
     /**
      * 医生id
      */
-    private Long doctor;
+    private Long doctorId;
 
     /**
      * 手术名称
