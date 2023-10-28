@@ -1,7 +1,10 @@
 package com.oral.service;
 
+import com.oral.common.PageResult;
+import com.oral.model.dto.SurgeryPageQueryDTO;
 import com.oral.model.entity.Surgery;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.oral.model.vo.SurgeryVO;
 
 /**
 * @author Administrator
@@ -9,5 +12,17 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-10-17 23:27:36
 */
 public interface SurgeryService extends IService<Surgery> {
+    /**
+     * 根据id查询手术
+     * @param id
+     * @return
+     */
+    public SurgeryVO getById(long id);
 
+    /**
+     * 手术分页查询
+     * @param surgeryPageQueryDTO
+     * @return
+     */
+    PageResult pageQuery(SurgeryPageQueryDTO surgeryPageQueryDTO);
 }
