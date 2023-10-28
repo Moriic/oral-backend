@@ -1,6 +1,11 @@
 package com.oral.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.oral.common.ErrorCode;
+import com.oral.common.PageResult;
+import com.oral.exception.BusinessException;
+import com.oral.model.dto.PatientPageDTO;
 import com.oral.model.entity.Patient;
 import com.oral.service.PatientService;
 import com.oral.mapper.PatientMapper;
@@ -15,6 +20,22 @@ import org.springframework.stereotype.Service;
 public class PatientServiceImpl extends ServiceImpl<PatientMapper, Patient>
     implements PatientService{
 
+    @Override
+    public Patient search(String id) {
+        Patient patient = query().eq("id",id).one();
+        if(patient == null){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR,"该患者不存在");
+        }
+
+        return patient;
+    }
+
+    @Override
+    public PageResult<Patient> search(PatientPageDTO dto) {
+        Page<Patient> page =  query().page(new Page<>(dto.getPage(),dto.getPageSize()));
+
+        return new PageResult<>(page.getTotal(),page.getRecords());
+    }
 }
 
 

@@ -1,6 +1,8 @@
 package com.oral.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.oral.common.PageResult;
+import com.oral.model.dto.PatientPageDTO;
 import com.oral.model.entity.Patient;
 
 /**
@@ -9,5 +11,6 @@ import com.oral.model.entity.Patient;
 * @createDate 2023-10-17 23:27:36
 */
 public interface PatientService extends IService<Patient> {
-
+    Patient search(String id);
+    PageResult<Patient> search(PatientPageDTO dto);
 }
