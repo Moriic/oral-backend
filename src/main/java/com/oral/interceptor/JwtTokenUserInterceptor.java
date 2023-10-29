@@ -56,12 +56,15 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
 
             // doctor 无法访问 admin 接口
             if (request.getRequestURI().contains(UserContant.ADMIN) && role.equals(UserContant.DOCTOR)){
+                log.error("权限不足");
+                response.setStatus(401);
                 return false;
             }
             BaseContext.setCurrentId(userId);
             //3、通过，放行
             return true;
         } catch (Exception ex) {
+            log.error("校验失败");
             //4、不通过，响应401状态码
             response.setStatus(401);
             return false;

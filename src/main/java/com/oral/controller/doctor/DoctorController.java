@@ -28,8 +28,6 @@ public class DoctorController {
     @Resource
     private UserService userService;
 
-    @Resource
-    SurgeryService surgeryService;
     /**
      * 医生更新个人信息
      * @param doctorUpdateDTO 更新信息
@@ -48,32 +46,4 @@ public class DoctorController {
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
         return ResultUtils.success(true);
     }
-
-
-    /**
-     *根据id查询手术
-     * @param id
-     * @return
-     */
-    @GetMapping("/surgery/{id}")
-    public BaseResponse<SurgeryVO> getById(@PathVariable long id){
-        log.info("根据id查询手术：{}", id);
-        SurgeryVO surgeryVO=surgeryService.getById(id);
-
-        return ResultUtils.success(surgeryVO);
-    }
-
-    /**
-     * 手术分页查询
-     * @param surgeryPageQueryDTO
-     * @return
-     */
-    @GetMapping("/surgery/page")
-    public BaseResponse<PageResult<SurgeryVO>> pageQuery(@RequestBody SurgeryPageQueryDTO surgeryPageQueryDTO){
-        log.info("手术分页查询:{}", surgeryPageQueryDTO);
-        PageResult<SurgeryVO> pageResult=surgeryService.pageQuery(surgeryPageQueryDTO);
-
-        return ResultUtils.success(pageResult);
-    }
-
 }

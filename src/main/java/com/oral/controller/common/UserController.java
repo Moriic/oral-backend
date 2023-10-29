@@ -32,8 +32,9 @@ public class UserController {
 
     /**
      * 用户登录
-     * @param userLoginDTO  账号密码
-     * @return  返回账号信息和token
+     *
+     * @param userLoginDTO 账号密码
+     * @return 返回账号信息和token
      */
     @PostMapping("/login")
     public BaseResponse<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO) {
@@ -42,7 +43,7 @@ public class UserController {
         //登录成功后，生成jwt令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.USER_ID, user.getId());
-        claims.put(JwtClaimsConstant.ROLE,user.getRole());
+        claims.put(JwtClaimsConstant.ROLE, user.getRole());
 
         String token = JwtUtil.createJWT(
                 jwtProperties.getUserSecretKey(),
@@ -68,15 +69,16 @@ public class UserController {
 
     /**
      * 获取登录用户信息
+     *
      * @return 用户信息
      */
     @GetMapping
-    public BaseResponse<UserLoginVO> getUserById(){
+    public BaseResponse<UserLoginVO> getUserById() {
         Long userId = BaseContext.getCurrentId();
         User user = userService.getById(userId);
 
         UserLoginVO userLoginVO = new UserLoginVO();
-        BeanUtils.copyProperties(user,userLoginVO);
+        BeanUtils.copyProperties(user, userLoginVO);
         return ResultUtils.success(userLoginVO);
     }
 }
