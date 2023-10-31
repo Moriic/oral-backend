@@ -1,7 +1,8 @@
 package com.oral.config;
 
-import com.oral.interceptor.JwtTokenUserInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oral.constant.FileConstant;
+import com.oral.interceptor.JwtTokenUserInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -28,6 +29,7 @@ public class WebMVCConfig extends WebMvcConfigurationSupport {
 
     /**
      * 配置jwt拦截器
+     *
      * @param registry
      */
     protected void addInterceptors(InterceptorRegistry registry) {
@@ -35,12 +37,14 @@ public class WebMVCConfig extends WebMvcConfigurationSupport {
                 .addPathPatterns("/doctor/**")
                 .addPathPatterns("/admin/**")
                 .addPathPatterns("/user/**")
+//                .addPathPatterns("/upload/**")
                 .excludePathPatterns("/user/login");
     }
 
 
     /**
      * knife4j 配置静态资源映射
+     *
      * @param registry
      */
     @Override
@@ -52,10 +56,14 @@ public class WebMVCConfig extends WebMvcConfigurationSupport {
         /** 公共部分内容 */
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+
+        registry.addResourceHandler("/nii/**")
+                .addResourceLocations("file:" + FileConstant.INPUT_FILE);
     }
 
     /**
      * 日期格式化
+     *
      * @return
      */
     @Bean
@@ -70,6 +78,7 @@ public class WebMVCConfig extends WebMvcConfigurationSupport {
 
         return builder.build();
     }
+
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.removeIf(c -> c instanceof MappingJackson2HttpMessageConverter);
