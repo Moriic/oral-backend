@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminDoctorController {
+public class DoctorController {
 
     @RequestMapping(value = "/doctor", method = RequestMethod.POST)
     public BaseResponse<Boolean> add(AddDTO dto){
