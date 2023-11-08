@@ -1,8 +1,6 @@
 package com.oral.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.oral.common.PageResult;
 import com.oral.mapper.SurgeryMapper;
 import com.oral.model.dto.SurgeryPageQueryDTO;
@@ -43,7 +41,7 @@ public class SurgeryServiceImpl extends ServiceImpl<SurgeryMapper, Surgery>
      */
     public SurgeryVO getById(long id) {
         //根据id查询手术
-        Surgery surgery = surgeryMapper.getById(id);
+        Surgery surgery = surgeryMapper.selectById(id);
 
         SurgeryVO surgeryVO = new SurgeryVO();
         //根据PatientId查询患者信息
@@ -54,35 +52,6 @@ public class SurgeryServiceImpl extends ServiceImpl<SurgeryMapper, Surgery>
         return surgeryVO;
     }
 
-    /**
-     * 手术分页查询
-     *
-     * @param surgeryPageQueryDTO
-     * @return
-     */
-    public PageResult pageQuery(SurgeryPageQueryDTO surgeryPageQueryDTO) {
-        //开始分页查询
-        PageHelper.startPage(surgeryPageQueryDTO.getPage(), surgeryPageQueryDTO.getPageSize());
-
-        log.info("id为： {}", BaseContext.getCurrentId());
-        Page<Surgery> page = surgeryMapper.pageQuery(BaseContext.getCurrentId());
-
-
-        long total = page.getTotal();
-        List<Surgery> records = page.getResult();
-        List<SurgeryVO> Recordes = new ArrayList<>();
-        for (Surgery surgery : records) {
-            SurgeryVO surgeryVO = new SurgeryVO();
-            //根据PatientId查询患者信息
-            Patient patient = patientService.getById(surgery.getPatientId());
-            //将患者信息封装到surgeryVO
-            BeanUtils.copyProperties(surgery, surgeryVO);
-            surgeryVO.setPatient(patient);
-            Recordes.add(surgeryVO);
-        }
-
-        return new PageResult(total, Recordes);
-    }
 }
 
 
