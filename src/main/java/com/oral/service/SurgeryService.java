@@ -19,10 +19,4 @@ public interface SurgeryService extends IService<Surgery> {
      */
     public SurgeryVO getById(long id);
 
-    /**
-     * 手术分页查询
-     * @param surgeryPageQueryDTO
-     * @return
-     */
-    PageResult pageQuery(SurgeryPageQueryDTO surgeryPageQueryDTO);
 }

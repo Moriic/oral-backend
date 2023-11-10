@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -56,5 +57,28 @@ public class UploadController {
         }).start();
 
         return ResultUtils.success(niiVO);
+    }
+
+    /**
+     * 图片上传
+     * @param image
+     * @return
+     * @throws IOException
+     */
+    @PostMapping("/image")
+    public BaseResponse uploadImage(MultipartFile image) throws IOException {
+        log.info("文件上传：{}",image);
+
+        //获取原始文件名
+        String originalFilename = image.getOriginalFilename();
+
+        //构建新的文件名
+        String extname = originalFilename.substring(originalFilename.lastIndexOf("."));//文件扩展名
+        String newFileName = UUID.randomUUID().toString()+extname;//随机名+文件扩展名
+
+        //将文件存储在服务器的磁盘目录
+        image.transferTo(new File(FileConstant.Image_FILE+newFileName));
+
+        return ResultUtils.success(FileConstant.Image_FILE+newFileName);
     }
 }
