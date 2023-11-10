@@ -77,8 +77,8 @@ public class UploadController {
         String newFileName = UUID.randomUUID().toString()+extname;//随机名+文件扩展名
 
         //将文件存储在服务器的磁盘目录
-        image.transferTo(new File(FileConstant.Image_FILE+newFileName));
+        image.transferTo(new File(FileConstant.IMAGE_FILE + newFileName));
 
-        return ResultUtils.success(FileConstant.Image_FILE+newFileName);
+        return ResultUtils.success(FileConstant.IMAGE_FILE + newFileName);
     }
 }

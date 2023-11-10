@@ -1,6 +1,7 @@
 package com.oral.model.dto.admin.doctor;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class AddDTO {
@@ -14,6 +15,7 @@ public class AddDTO {
     private String avatar;
     private String profile;
     private String role;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String birthday;
 }
 

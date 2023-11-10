@@ -67,6 +67,11 @@ public class User implements Serializable {
     private String job;
 
     /**
+     * 办公室
+     */
+    private String office;
+
+    /**
      * 头像
      */
     private String avatar;
