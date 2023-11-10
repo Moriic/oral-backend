@@ -139,7 +139,8 @@ VALUES (1, 'doctor', 'e10adc3949ba59abbe56e057f20f883e', '张三', 37, '1986-10-
         '主任医师', 'H1-501',
         null, null,
         '口腔全科医生，掌握口腔医学各学科知识与基本能力，擅长牙体牙髓常见病疑难病诊断治疗,显微根管治疗,牙齿美白美容修复。',
-        'doctor');
+        'admin')
+ON DUPLICATE KEY UPDATE role = 'admin';
 
 -- 默认账号 admin 123456 md5加密
 insert into user (id, account, password, name, age, birthday, gender, phone, department, job, office, avatar,
@@ -154,7 +155,8 @@ insert into patient (id, name, gender, age, phone, blood, ssCard)
 values (1, '李四', '男', 25, 13222222222, 'B', '1140001140001');
 
 insert into surgery (id, patientId, doctorId, name, startTime, duration, job, evaluation, examination)
-values (1, 1, 1, '口腔内肿瘤手术', '2023-10-17 12:00:00', 5, '主刀', 3, 1);
+values (1, 1, 1, '口腔内肿瘤手术', '2023-10-17 12:00:00', 5, '主刀', 3, 1)
+ON DUPLICATE KEY UPDATE patientId = 1;
 
 insert into department (id, dep)
 values (1, '牙体牙髓科'),
