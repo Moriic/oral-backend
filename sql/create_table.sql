@@ -82,12 +82,14 @@ VALUES (1, 'doctor', 'e10adc3949ba59abbe56e057f20f883e', '张三', 37, '1986-10-
         '主任医师',
         null, null,
         '口腔全科医生，掌握口腔医学各学科知识与基本能力，擅长牙体牙髓常见病疑难病诊断治疗,显微根管治疗,牙齿美白美容修复。',
-        'doctor');
+        'admin')
+ON DUPLICATE KEY UPDATE role = 'admin';
 
 insert into patient (id, name, gender, age, phone, blood, ssCard)
-values (1, '李四', '男', 25, 13222222222, 'B', '1140001140001');
-
+values (1, '李四', '男', 25, 13222222222, 'B', '1140001140001')
+ON DUPLICATE KEY UPDATE age = 25;
 
 insert into surgery (id, patientId, doctorId, name, startTime, duration, job, evaluation, examination)
-values (1, 1, 1, '口腔内肿瘤手术', '2023-10-17 12:00:00', 5, '主刀', 3, 1);
+values (1, 1, 1, '口腔内肿瘤手术', '2023-10-17 12:00:00', 5, '主刀', 3, 1)
+ON DUPLICATE KEY UPDATE patientId = 1;
 
