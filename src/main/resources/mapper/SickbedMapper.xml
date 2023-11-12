@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.SickbedMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.Sickbed">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="bedno" column="bedNo" jdbcType="INTEGER"/>
+            <result property="roomid" column="roomId" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="patient" column="patient" jdbcType="VARCHAR"/>
+            <result property="illness" column="illness" jdbcType="VARCHAR"/>
+            <result property="days" column="days" jdbcType="INTEGER"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isdelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,bedNo,roomId,
+        status,patient,illness,
+        days,createTime,updateTime,
+        isDelete
+    </sql>
+</mapper>
