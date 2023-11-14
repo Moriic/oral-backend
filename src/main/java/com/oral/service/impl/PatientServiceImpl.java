@@ -6,9 +6,12 @@ import com.oral.common.ErrorCode;
 import com.oral.common.PageResult;
 import com.oral.exception.BusinessException;
 import com.oral.model.dto.PatientPageDTO;
+import com.oral.model.dto.admin.regiser.UpdatePatientDTO;
 import com.oral.model.entity.Patient;
+import com.oral.model.entity.User;
 import com.oral.service.PatientService;
 import com.oral.mapper.PatientMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -35,6 +38,16 @@ public class PatientServiceImpl extends ServiceImpl<PatientMapper, Patient>
         Page<Patient> page =  query().page(new Page<>(dto.getPage(),dto.getPageSize()));
 
         return new PageResult<>(page.getTotal(),page.getRecords());
+    }
+
+    /**
+     * 修改患者信息
+     * @param updatePatientDTO
+     */
+    public void UpdatePatient(UpdatePatientDTO updatePatientDTO) {
+        Patient patient=search(String.valueOf(updatePatientDTO.getId()));
+        BeanUtils.copyProperties(updatePatientDTO,patient);
+        super.saveOrUpdate(patient);
     }
 }
 
