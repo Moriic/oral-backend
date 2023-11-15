@@ -1,9 +1,9 @@
-package generator.service.impl;
+package com.oral.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import generator.domain.Department;
-import generator.service.DepartmentService;
-import generator.mapper.DepartmentMapper;
+import com.oral.mapper.DepartmentMapper;
+import com.oral.model.entity.Department;
+import com.oral.service.DepartmentService;
 import org.springframework.stereotype.Service;
 
 /**

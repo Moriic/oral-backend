@@ -1,22 +1,17 @@
 package com.oral.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.oral.common.PageResult;
 import com.oral.mapper.SurgeryMapper;
-import com.oral.model.dto.SurgeryPageQueryDTO;
 import com.oral.model.entity.Patient;
 import com.oral.model.entity.Surgery;
 import com.oral.model.vo.SurgeryVO;
 import com.oral.service.PatientService;
 import com.oral.service.SurgeryService;
-import com.oral.utils.BaseContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Administrator

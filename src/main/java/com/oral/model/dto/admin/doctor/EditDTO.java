@@ -50,8 +50,4 @@ public class EditDTO {
      * 简介
      */
     private String profile;
-    /**
-     * 用户角色：doctor/admin
-     */
-    private String role;
 }

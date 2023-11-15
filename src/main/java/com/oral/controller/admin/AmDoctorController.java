@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/admin")
-public class DoctorController {
+public class AmDoctorController {
 
     @Resource
     private AdminService adminService;

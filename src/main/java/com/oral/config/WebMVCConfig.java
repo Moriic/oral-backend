@@ -1,21 +1,16 @@
 package com.oral.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oral.constant.FileConstant;
 import com.oral.interceptor.JwtTokenUserInterceptor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * WebMVC相关配置
@@ -62,26 +57,16 @@ public class WebMVCConfig extends WebMvcConfigurationSupport {
     }
 
     /**
-     * 日期格式化
-     *
-     * @return
+     * 扩展Spring MVC消息转换器
+     * @param converters
      */
-    @Bean
-    public ObjectMapper jacksonObjectMapperCustomization() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        TimeZone timeZone = TimeZone.getTimeZone("Asia/Shanghai");
-        format.setTimeZone(timeZone);
-
-        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder()
-                .timeZone(timeZone)
-                .dateFormat(format);
-
-        return builder.build();
-    }
-
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.removeIf(c -> c instanceof MappingJackson2HttpMessageConverter);
-        converters.add(new MappingJackson2HttpMessageConverter(jacksonObjectMapperCustomization()));
+        //创建一个消息转换器对象
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        //为消息转换器设置一个对象转换器，对象转换器可以将Java对象转换为Json数据
+        converter.setObjectMapper(new JacksonObjectMapper());
+        //将消息转换器加入容器中
+        converters.add(0,converter);
     }
 }

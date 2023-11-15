@@ -1,16 +1,25 @@
-package com.oral.model.vo;
+package com.oral.model.entity;
 
-import com.oral.model.entity.Patient;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * 手术
+ * @TableName surgery
+ */
+@TableName(value ="surgery")
 @Data
-public class SurgeryVO implements Serializable {
+public class Surgery implements Serializable {
     /**
      * id
      */
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -22,11 +31,6 @@ public class SurgeryVO implements Serializable {
      * 医生id
      */
     private Long doctorId;
-
-    /**
-     * 患者信息
-     */
-    private Patient patient;
 
     /**
      * 手术名称
@@ -87,4 +91,12 @@ public class SurgeryVO implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDelete;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }

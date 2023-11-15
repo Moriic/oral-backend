@@ -2,14 +2,23 @@ package com.oral.model.vo;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class DoctorVO {
     /**
+     * id
+     */
+    private long id;
+    /**
      * 账号
      */
     private String account;
+    /**
+     * 姓名
+     */
+    private String name;
     /**
      * 年龄
      */
@@ -21,11 +30,7 @@ public class DoctorVO {
     /**
      * 出生日期
      */
-    private Date birthday;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
+    private LocalDate birthday;
     /**
      * 科室
      */
@@ -35,17 +40,10 @@ public class DoctorVO {
      */
     private String gender;
     /**
-     * id
-     */
-    private long id;
-    /**
      * 职称
      */
     private String job;
-    /**
-     * 姓名
-     */
-    private String name;
+
     /**
      * 办公室
      */
@@ -59,11 +57,12 @@ public class DoctorVO {
      */
     private String profile;
     /**
-     * 用户角色：doctor/admin
+     * 创建时间
      */
-    private String role;
+    private LocalDateTime createTime;
+
     /**
      * 更新时间
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
 }

@@ -3,7 +3,7 @@ package com.oral.model.vo;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class PatientVO implements Serializable {
@@ -29,8 +29,8 @@ public class PatientVO implements Serializable {
     private String ssCard;
 
     //创建时间
-    private Date createTime;
+    private LocalDateTime createTime;
 
     //更新时间
-    private Date updateTime;
+    private LocalDateTime updateTime;
 }

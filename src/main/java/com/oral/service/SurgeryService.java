@@ -1,9 +1,7 @@
 package com.oral.service;
 
-import com.oral.common.PageResult;
-import com.oral.model.dto.SurgeryPageQueryDTO;
-import com.oral.model.entity.Surgery;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.oral.model.entity.Surgery;
 import com.oral.model.vo.SurgeryVO;
 
 /**

@@ -1,7 +1,8 @@
-package generator.service;
+package com.oral.service;
 
-import generator.domain.Doctor;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.oral.model.entity.Doctor;
+import com.oral.model.vo.DoctorVO;
 
 /**
 * @author Administrator
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface DoctorService extends IService<Doctor> {
 
+    DoctorVO search();
 }

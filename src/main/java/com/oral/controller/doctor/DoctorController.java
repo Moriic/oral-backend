@@ -3,16 +3,13 @@ package com.oral.controller.doctor;
 
 import com.oral.common.BaseResponse;
 import com.oral.common.ErrorCode;
-import com.oral.common.PageResult;
 import com.oral.common.ResultUtils;
 import com.oral.exception.BusinessException;
 import com.oral.exception.ThrowUtils;
 import com.oral.model.dto.DoctorUpdateDTO;
-import com.oral.model.dto.SurgeryPageQueryDTO;
-import com.oral.model.entity.User;
-import com.oral.model.vo.SurgeryVO;
-import com.oral.service.SurgeryService;
-import com.oral.service.UserService;
+import com.oral.model.entity.Doctor;
+import com.oral.model.vo.DoctorVO;
+import com.oral.service.DoctorService;
 import com.oral.utils.BaseContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -24,9 +21,16 @@ import javax.annotation.Resource;
 @RequestMapping("/doctor")
 @Slf4j
 public class DoctorController {
-
     @Resource
-    private UserService userService;
+    private DoctorService doctorService;
+    /**
+     * 获取医生信息
+     */
+    @GetMapping
+    public BaseResponse<DoctorVO> search(){
+        DoctorVO doctorVO = doctorService.search();
+        return ResultUtils.success(doctorVO);
+    }
 
     /**
      * 医生更新个人信息
@@ -38,11 +42,11 @@ public class DoctorController {
         if (doctorUpdateDTO == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        User user = new User();
-        BeanUtils.copyProperties(doctorUpdateDTO, user);
-        Long userId = BaseContext.getCurrentId();
-        user.setId(userId);
-        boolean result = userService.updateById(user);
+        Doctor doctor = new Doctor();
+        BeanUtils.copyProperties(doctorUpdateDTO, doctor);
+        Long doctorId = BaseContext.getCurrentId();
+        doctor.setId(doctorId);
+        boolean result = doctorService.updateById(doctor);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
         return ResultUtils.success(true);
     }

@@ -1,13 +1,11 @@
 package com.oral.model.vo;
 
-import com.oral.model.entity.Patient;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
-public class UserLogin implements Serializable {
+public class UserLoginVO implements Serializable {
     /**
      * token
      */

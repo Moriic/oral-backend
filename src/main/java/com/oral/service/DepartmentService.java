@@ -1,7 +1,7 @@
-package generator.service;
+package com.oral.service;
 
-import generator.domain.Department;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.oral.model.entity.Department;
 
 /**
 * @author Administrator

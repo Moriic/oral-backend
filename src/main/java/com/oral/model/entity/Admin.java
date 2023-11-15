@@ -1,13 +1,21 @@
-package com.oral.model.vo;
+package com.oral.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * 管理者
+ * @TableName admin
+ */
+@TableName(value ="admin")
 @Data
-public class AdminVO {
+public class Admin implements Serializable {
     /**
      * id
      */
@@ -18,6 +26,11 @@ public class AdminVO {
      * 账号
      */
     private String account;
+
+    /**
+     * 密码
+     */
+    private String password;
 
     /**
      * 姓名
@@ -43,4 +56,12 @@ public class AdminVO {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDelete;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }
