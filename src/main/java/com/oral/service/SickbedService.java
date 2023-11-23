@@ -9,5 +9,6 @@ import com.oral.model.entity.Sickbed;
 * @createDate 2023-11-15 17:15:26
 */
 public interface SickbedService extends IService<Sickbed> {
+    Sickbed search(String id);
 
 }

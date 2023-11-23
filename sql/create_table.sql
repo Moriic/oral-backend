@@ -174,9 +174,9 @@ values (1, '牙体牙髓科'),
 -- 默认账号 doctor 123456 md5加密
 insert into doctor (id, account, password, name, age, birthday, gender, phone, job, avatar, photo, profile, deptId,
                     office)
-VALUES (1, 'doctor', 'e10adc3949ba59abbe56e057f20f883e', '张三', 37, '1986-10-17', '男', 133333333333,
-        '主任医师', null, null,
-        '口腔全科医生，掌握口腔医学各学科知识与基本能力，擅长牙体牙髓常见病疑难病诊断治疗,显微根管治疗,牙齿美白美容修复。',
+VALUES (1, 'doctor', 'e10adc3949ba59abbe56e057f20f883e', 'ブラックジャック', 37, '1986-10-17', '男', 133333333333,
+        '天才外科医', null, null,
+        'ブラック・ジャックは、卓越した外科手術技術と医療上の難題を解決する能力で、数々の患者を救い、目を見張る医学の伝説を築き上げました。',
         1, 'H1-505');
 
 -- 默认账号 admin 123456 md5加密

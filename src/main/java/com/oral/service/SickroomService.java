@@ -1,6 +1,9 @@
 package com.oral.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.oral.common.PageResult;
+import com.oral.model.dto.admin.SickroomPageDTO;
+import com.oral.model.entity.Sickbed;
 import com.oral.model.entity.Sickroom;
 
 /**
@@ -10,4 +13,5 @@ import com.oral.model.entity.Sickroom;
 */
 public interface SickroomService extends IService<Sickroom> {
 
+    PageResult<Sickroom> search(SickroomPageDTO dto);
 }
