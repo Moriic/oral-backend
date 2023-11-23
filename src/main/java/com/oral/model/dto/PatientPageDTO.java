@@ -3,6 +3,8 @@ package com.oral.model.dto;
 import com.oral.common.PageRequest;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class PatientPageDTO extends PageRequest {
+public class PatientPageDTO extends PageRequest implements Serializable {
 }
