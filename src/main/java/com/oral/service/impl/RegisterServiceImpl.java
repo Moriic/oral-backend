@@ -9,6 +9,7 @@ import com.oral.model.dto.admin.register.AddDTO;
 import com.oral.model.entity.Patient;
 import com.oral.model.entity.Register;
 import com.oral.model.vo.RegisterVO;
+import com.oral.service.PatientService;
 import com.oral.service.RegisterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -17,55 +18,63 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
-* @author Administrator
-* @description 针对表【register(挂号)】的数据库操作Service实现
-* @createDate 2023-11-15 17:15:26
-*/
+ * @author Administrator
+ * @description 针对表【register(挂号)】的数据库操作Service实现
+ * @createDate 2023-11-15 17:15:26
+ */
 @Service
 @Slf4j
 public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, Register>
-    implements RegisterService{
+        implements RegisterService {
 
     @Resource
     PatientMapper patientMapper;
     @Resource
     DepartmentMapper departmentMapper;
+
+    @Resource
+    private PatientService patientService;
+
     /**
      * 添加挂号
+     *
      * @param addDTO
      */
     public void Add(AddDTO addDTO) {
-        log.info("AddDO:{}",addDTO);
+        log.info("AddDO:{}", addDTO);
 
-        Register register=new Register();
+        Register register = new Register();
         //拷贝数据
-        BeanUtils.copyProperties(addDTO,register);
-        //挂号，未就诊
-        register.setStatus(0);
-        //设置科室ID
-        register.setDeptId(addDTO.getDeptId());
-        log.info("register:{}",register);
-
+        BeanUtils.copyProperties(addDTO, register);
+        log.info("register:{}", register);
 
         //根据社保卡号查病人
-        LambdaQueryWrapper<Patient> lq=new LambdaQueryWrapper();
-        lq.eq(Patient::getSsCard,addDTO.getSscard());
+        LambdaQueryWrapper<Patient> lq = new LambdaQueryWrapper<>();
+        lq.eq(Patient::getSsCard, addDTO.getSsCard());
         Patient patient = patientMapper.selectOne(lq);
-        //设置病人ID
-        register.setPatientId(patient.getId());
-        super.save(register);
+        // 没有该患者
+        if (patient == null) {
+            Patient patientNew = new Patient();
+            BeanUtils.copyProperties(addDTO, patientNew);
+            patientService.save(patientNew);
+            register.setPatientId(patientNew.getId());
+        } else {
+            register.setPatientId(patient.getId());
+        }
+        save(register);
     }
 
     /**
      * 根据id查询挂号信息
+     *
      * @param id
      * @return
      */
     public RegisterVO GetById(String id) {
         Register register = super.getById(id);
-        RegisterVO registerVO=new RegisterVO();
+        RegisterVO registerVO = new RegisterVO();
         //拷贝数据
-        BeanUtils.copyProperties(register,registerVO);
+        BeanUtils.copyProperties(register, registerVO);
 
         //获取科室
         String dept = departmentMapper.selectById(register.getDeptId()).getDept();

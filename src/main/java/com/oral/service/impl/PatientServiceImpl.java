@@ -14,19 +14,19 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 /**
-* @author Administrator
-* @description 针对表【patient(患者)】的数据库操作Service实现
-* @createDate 2023-10-17 23:27:36
-*/
+ * @author Administrator
+ * @description 针对表【patient(患者)】的数据库操作Service实现
+ * @createDate 2023-10-17 23:27:36
+ */
 @Service
 public class PatientServiceImpl extends ServiceImpl<PatientMapper, Patient>
-    implements PatientService{
+        implements PatientService {
 
     @Override
     public Patient search(String id) {
-        Patient patient = query().eq("id",id).one();
-        if(patient == null){
-            throw new BusinessException(ErrorCode.PARAMS_ERROR,"该患者不存在");
+        Patient patient = query().eq("id", id).one();
+        if (patient == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "该患者不存在");
         }
 
         return patient;
@@ -34,19 +34,20 @@ public class PatientServiceImpl extends ServiceImpl<PatientMapper, Patient>
 
     @Override
     public PageResult<Patient> search(PatientPageDTO dto) {
-        Page<Patient> page =  query().page(new Page<>(dto.getPage(),dto.getPageSize()));
+        Page<Patient> page = query().page(new Page<>(dto.getPage(), dto.getPageSize()));
 
-        return new PageResult<>(page.getTotal(),page.getRecords());
+        return new PageResult<>(page.getTotal(), page.getRecords());
     }
 
     /**
      * 修改患者信息
+     *
      * @param updatePatientDTO
      */
     public void UpdatePatient(UpdatePatientDTO updatePatientDTO) {
-        Patient patient=search(String.valueOf(updatePatientDTO.getPatientId()));
-        BeanUtils.copyProperties(updatePatientDTO,patient);
-        super.saveOrUpdate(patient);
+        Patient patient = new Patient();
+        BeanUtils.copyProperties(updatePatientDTO, patient);
+        updateById(patient);
     }
 }
 

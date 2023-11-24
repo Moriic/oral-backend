@@ -32,6 +32,7 @@ public class WebMVCConfig extends WebMvcConfigurationSupport {
                 .addPathPatterns("/doctor/**")
                 .addPathPatterns("/admin/**")
                 .addPathPatterns("/user/**")
+                .addPathPatterns("/role")
 //                .addPathPatterns("/upload/**")
                 .excludePathPatterns("/user/login");
     }

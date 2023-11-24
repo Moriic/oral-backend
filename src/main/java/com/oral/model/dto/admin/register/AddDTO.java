@@ -35,7 +35,7 @@ public class AddDTO implements Serializable {
     /**
      * 社保卡号
      */
-    private String sscard;
+    private String ssCard;
 
     /**
      * 关联科室

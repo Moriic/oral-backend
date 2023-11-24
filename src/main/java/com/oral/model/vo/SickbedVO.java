@@ -14,7 +14,7 @@ public class SickbedVO implements Serializable {
     /**
      * 住院天数
      */
-    private Long days;
+    private Integer days;
     /**
      * id
      */
@@ -34,7 +34,7 @@ public class SickbedVO implements Serializable {
     /**
      * 状态 0-未启用 1-启用
      */
-    private Long status;
+    private Integer status;
     /**
      * 更新时间
      */

@@ -24,69 +24,75 @@ public class RegisterController {
     RegisterService registerService;
     @Resource
     PatientService patientService;
+
     /**
      * 添加挂号
+     *
      * @param addDTO
      * @return
      */
     @PostMapping("/register")
-    public BaseResponse<Boolean> AddRegister(@RequestBody AddDTO addDTO){
+    public BaseResponse<Boolean> AddRegister(@RequestBody AddDTO addDTO) {
         registerService.Add(addDTO);
         return ResultUtils.success(true);
     }
 
     /**
      * 修改患者信息
+     *
      * @param updatePatientDTO
      * @return
      */
     @PutMapping("/patient")
-    public BaseResponse<Boolean> UpdatePatient(@RequestBody UpdatePatientDTO updatePatientDTO){
+    public BaseResponse<Boolean> UpdatePatient(@RequestBody UpdatePatientDTO updatePatientDTO) {
         patientService.UpdatePatient(updatePatientDTO);
         return ResultUtils.success(true);
     }
 
     /**
      * 删除挂号
+     *
      * @param id
      * @return
      */
-    @DeleteMapping("/regiser")
-    public BaseResponse<Boolean> DeleteRegister(String id){
+    @DeleteMapping("/register")
+    public BaseResponse<Boolean> DeleteRegister(String id) {
         registerService.removeById(id);
         return ResultUtils.success(true);
     }
 
     /**
      * 根据id查询挂号信息
+     *
      * @param id
      * @return
      */
     @GetMapping("/register/{id}")
-    public BaseResponse<RegisterVO>GetRegisterById(@PathVariable("id") String id){
-        RegisterVO registerVO=registerService.GetById(id);
+    public BaseResponse<RegisterVO> GetRegisterById(@PathVariable("id") String id) {
+        RegisterVO registerVO = registerService.GetById(id);
         return ResultUtils.success(registerVO);
     }
 
     /**
      * 挂号分页查询
+     *
      * @param registerPageDTO
      * @return
      */
     @GetMapping("/register/page")
-    public BaseResponse<PageResult<RegisterVO>> pageQuery(RegisterPageDTO registerPageDTO){
-        Page pageInfo= new Page<>(registerPageDTO.getPage(),registerPageDTO.getPageSize());
+    public BaseResponse<PageResult<RegisterVO>> pageQuery(RegisterPageDTO registerPageDTO) {
+        Page pageInfo = new Page<>(registerPageDTO.getPage(), registerPageDTO.getPageSize());
 
         registerService.page(pageInfo);
 
         long total = pageInfo.getTotal();
         List<Register> records = pageInfo.getRecords();
-        List<RegisterVO> Recordes = new ArrayList<>();
+        List<RegisterVO> Records = new ArrayList<>();
         for (Register register : records) {
-            RegisterVO registerVO=registerService.GetById(String.valueOf(register.getId()));
-            Recordes.add(registerVO);
+            RegisterVO registerVO = registerService.GetById(String.valueOf(register.getId()));
+            Records.add(registerVO);
         }
-        PageResult<RegisterVO>pageResult= new PageResult(total, Recordes);
+        PageResult<RegisterVO> pageResult = new PageResult(total, Records);
         return ResultUtils.success(pageResult);
     }
 

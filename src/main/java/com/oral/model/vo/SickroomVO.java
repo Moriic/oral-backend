@@ -21,15 +21,15 @@ public class SickroomVO {
     /**
      * 病房号
      */
-    private Long roomNo;
+    private Integer roomNo;
     /**
      * 病床数
      */
-    private Long roomNumber;
+    private Integer roomNumber;
     /**
      * 0-普通病房，1-重症病房
      */
-    private Long type;
+    private Integer type;
     /**
      * 更新时间
      */

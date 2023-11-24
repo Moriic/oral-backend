@@ -5,37 +5,6 @@ create database if not exists oral;
 -- 使用库
 use oral;
 
--- 患者表
-create table if not exists patient
-(
-    id         bigint auto_increment comment 'id' primary key,
-    name       varchar(50)                        not null comment '姓名',
-    gender     varchar(10)                        not null comment '性别',
-    age        integer                            not null comment '年龄',
-    phone      varchar(20)                        not null comment '联系方式',
-    blood      varchar(10)                        not null comment '血型',
-    ssCard     varchar(50)                        not null comment '社保卡号',
-    createTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
-    updateTime datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
-    isDelete   tinyint  default 0                 not null comment '是否删除'
-) comment '患者' collate = utf8mb4_unicode_ci;
-
-
--- 检测图像
-create table if not exists image
-(
-    id             bigint auto_increment comment 'id' primary key,
-    patientId      bigint                             not null comment '患者id',
-    originalImage  varchar(256)                       not null comment '原图像',
-    processedImage varchar(256)                       not null comment '处理后的图像',
-    createTime     datetime default CURRENT_TIMESTAMP not null comment '创建时间',
-    updateTime     datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
-    isDelete       tinyint  default 0                 not null comment '是否删除',
-    foreign key (patientId) references patient (id)
-) comment '图像' collate = utf16_unicode_ci;
-
-
--- TODO 更新内容
 -- 科室表
 create table if not exists department
 (
@@ -45,6 +14,20 @@ create table if not exists department
     updateTime datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
     isDelete   tinyint  default 0                 not null comment '是否删除'
 ) comment '科室' collate = utf16_unicode_ci;
+
+-- 管理者表
+create table if not exists admin
+(
+    id         bigint auto_increment comment 'id' primary key,
+    account    varchar(256)                       not null comment '账号',
+    password   varchar(256)                       not null comment '密码',
+    name       varchar(50)                        not null comment '姓名',
+    phone      varchar(20)                        not null comment '联系方式',
+    avatar     varchar(1024)                      null comment '头像',
+    createTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    isDelete   tinyint  default 0                 not null comment '是否删除'
+) comment '管理者' collate = utf8mb4_unicode_ci;
 
 -- 医生表
 create table if not exists doctor
@@ -61,7 +44,6 @@ create table if not exists doctor
     avatar     varchar(1024)                      null comment '头像',
     photo      varchar(1024)                      null comment '照片',
     profile    varchar(512)                       null comment '简介',
--- TODO   更新医生内容
     deptId     bigint                             not null comment '关联科室id',
     office     varchar(50)                        null comment '办公室',
 
@@ -70,6 +52,22 @@ create table if not exists doctor
     isDelete   tinyint  default 0                 not null comment '是否删除',
     foreign key (deptId) references department (id)
 ) comment '医生' collate = utf8mb4_unicode_ci;
+
+-- 患者表
+create table if not exists patient
+(
+    id         bigint auto_increment comment 'id' primary key,
+    name       varchar(50)                        not null comment '姓名',
+    gender     varchar(10)                        not null comment '性别',
+    age        integer                            not null comment '年龄',
+    phone      varchar(20)                        not null comment '联系方式',
+    blood      varchar(10)                        not null comment '血型',
+    ssCard     varchar(50)                        not null comment '社保卡号',
+    createTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    isDelete   tinyint  default 0                 not null comment '是否删除'
+) comment '患者' collate = utf8mb4_unicode_ci;
+
 
 -- 手术表
 create table if not exists surgery
@@ -91,25 +89,8 @@ create table if not exists surgery
     updateTime     datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
     isDelete       tinyint      default 0                 not null comment '是否删除',
     foreign key (patientId) references patient (id),
--- TODO 更新关联表doctor
     foreign key (doctorId) references doctor (id)
 ) comment '手术' collate = utf8mb4_unicode_ci;
-
--- TODO 新增表
--- 管理者表
-create table if not exists admin
-(
-    id         bigint auto_increment comment 'id' primary key,
-    account    varchar(256)                       not null comment '账号',
-    password   varchar(256)                       not null comment '密码',
-    name       varchar(50)                        not null comment '姓名',
-    phone      varchar(20)                        not null comment '联系方式',
-    avatar     varchar(1024)                      null comment '头像',
-    createTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
-    updateTime datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
-    isDelete   tinyint  default 0                 not null comment '是否删除'
-) comment '管理者' collate = utf8mb4_unicode_ci;
-
 
 -- 挂号表
 create table if not exists register
@@ -158,6 +139,19 @@ create table if not exists sickbed
     isDelete   tinyint  default 0                 not null comment '是否删除',
     foreign key (roomId) references sickroom (id)
 ) comment '床位' collate = utf16_unicode_ci;
+
+-- 检测图像
+create table if not exists image
+(
+    id             bigint auto_increment comment 'id' primary key,
+    patientId      bigint                             not null comment '患者id',
+    originalImage  varchar(256)                       not null comment '原图像',
+    processedImage varchar(256)                       not null comment '处理后的图像',
+    createTime     datetime default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime     datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    isDelete       tinyint  default 0                 not null comment '是否删除',
+    foreign key (patientId) references patient (id)
+) comment '图像' collate = utf16_unicode_ci;
 
 insert into department (id, dept)
 values (1, '牙体牙髓科'),

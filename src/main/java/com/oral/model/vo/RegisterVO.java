@@ -41,11 +41,11 @@ public class RegisterVO implements Serializable {
     /**
      * 创建时间
      */
-    private LocalDateTime createtime;
+    private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
-    private LocalDateTime updatetime;
+    private LocalDateTime updateTime;
 
 }

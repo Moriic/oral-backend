@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
@@ -26,13 +27,16 @@ public class AdminICUController {
     private SickbedService sickbedService;
 
     @RequestMapping(value = "/sickroom/{id}",method = RequestMethod.GET)
-    public BaseResponse<SickbedVO> search(@PathVariable("id") String id) {
-        SickbedVO result = new SickbedVO();
+    public BaseResponse<List<SickbedVO>> search(@PathVariable("id") String id) {
+        List<SickbedVO> sickbedVOS = new ArrayList<>();
 
-        Sickbed target = sickbedService.search(id);
-        BeanUtils.copyProperties(target,result);
-
-        return ResultUtils.success(result);
+        List<Sickbed> sickbeds = sickbedService.search(id);
+        for (Sickbed sickbed : sickbeds) {
+            SickbedVO sickbedVO = new SickbedVO();
+            BeanUtils.copyProperties(sickbed,sickbedVO);
+            sickbedVOS.add(sickbedVO);
+        }
+        return ResultUtils.success(sickbedVOS);
     }
 
     @RequestMapping(value = "/sickroom",method = RequestMethod.GET)

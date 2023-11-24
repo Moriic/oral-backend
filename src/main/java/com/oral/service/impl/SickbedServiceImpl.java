@@ -8,6 +8,8 @@ import com.oral.model.entity.Sickbed;
 import com.oral.service.SickbedService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【sickbed(床位)】的数据库操作Service实现
@@ -18,13 +20,13 @@ public class SickbedServiceImpl extends ServiceImpl<SickbedMapper, Sickbed>
     implements SickbedService{
 
     @Override
-    public Sickbed search(String id){
-        Sickbed result = query().eq("id",id).one();
-        if(result == null){
+    public List<Sickbed> search(String id){
+        List<Sickbed> sickbeds = query().eq("id", id).list();
+        if(sickbeds == null){
             throw new BusinessException(ErrorCode.PARAMS_ERROR,"该病房不存在");
         }
 
-        return result;
+        return sickbeds;
     }
 }
 
